@@ -1,1 +1,1 @@
-module github.com/ArenAzibekyan/logs-writer
+module github.com/ArenAzibekyan/logs_writer
