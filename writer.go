@@ -9,10 +9,10 @@ import (
 )
 
 type writer struct {
-	logsPath string
-	dateFmt  string
-	lastLog  time.Time
-	file     *os.File
+	logsDir string
+	dateFmt string
+	lastLog time.Time
+	file    *os.File
 }
 
 func (this *writer) Write(p []byte) (int, error) {
@@ -23,9 +23,10 @@ func (this *writer) Write(p []byte) (int, error) {
 		}
 
 		now := time.Now()
-		path := filepath.Join(this.logsPath, now.Format(this.dateFmt)+".log")
+		path := filepath.Join(this.logsDir, now.Format(this.dateFmt)+".log")
 
-		f, err := os.OpenFile(path, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+		// rwxr--r--
+		f, err := os.OpenFile(path, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0744)
 		if err != nil {
 			return 0, err
 		}
