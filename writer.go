@@ -16,7 +16,6 @@ type writer struct {
 }
 
 func (this *writer) Write(p []byte) (int, error) {
-
 	if this.lastLog.IsZero() || this.lastLog.Before(now.BeginningOfDay()) || this.lastLog.After(now.EndOfDay()) {
 		if this.file != nil {
 			this.file.Close()

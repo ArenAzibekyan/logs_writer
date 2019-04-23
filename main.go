@@ -8,8 +8,7 @@ import (
 	"path/filepath"
 )
 
-func NewLogsWriter(logsDir, dateFmt string) (*io.Writer, error) {
-
+func NewLogsWriter(logsDir, dateFmt string) (io.Writer, error) {
 	// <executable dir>/logs if logs path is empty
 	if logsDir == "" {
 		ex, err := os.Executable()
@@ -43,12 +42,11 @@ func NewLogsWriter(logsDir, dateFmt string) (*io.Writer, error) {
 		dateFmt: dateFmt,
 	}
 
-	return &result, nil
+	return result, nil
 }
 
-// check logs dir and mkdir if need
+// checks logs dir and mkdir if need
 func prepareLogsDir(dir string) error {
-
 	fi, err := os.Stat(dir)
 
 	if err != nil {
