@@ -9,18 +9,18 @@ import (
 
 func TestWriter(t *testing.T) {
 
-	w, err := NewLogsWriter("", "")
+	w, err := NewLogsWriter("", "test", "")
 	if err != nil {
 		t.Error(err)
 	}
 
-	logrus.SetOutput(*w)
+	logrus.SetOutput(w)
 
 	c := make(chan int)
 
 	go func() {
 
-		for i := 0; i < 100; i++ {
+		for i := 0; i < 10; i++ {
 			c <- i
 			time.Sleep(1 * time.Second)
 		}

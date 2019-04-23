@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func NewLogsWriter(logsDir, dateFmt string) (io.Writer, error) {
+func NewLogsWriter(logsDir, prefix, dateFmt string) (io.Writer, error) {
 	// <executable dir>/logs if logs path is empty
 	if logsDir == "" {
 		ex, err := os.Executable()
@@ -39,6 +39,7 @@ func NewLogsWriter(logsDir, dateFmt string) (io.Writer, error) {
 
 	var result io.Writer = &writer{
 		logsDir: logsDir,
+		prefix:  prefix,
 		dateFmt: dateFmt,
 	}
 
