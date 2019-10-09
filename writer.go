@@ -19,11 +19,14 @@ type writer struct {
 
 func (w *writer) Write(p []byte) (int, error) {
 	if w.lastLog.IsZero() || w.lastLog.Before(now.BeginningOfDay()) || w.lastLog.After(now.EndOfDay()) {
-		w.file.Close()
+		if w.file != nil {
+			_ = w.file.Close()
+			w.file = nil
+		}
 
-		now := time.Now()
+		nw := time.Now()
 
-		fn := fmt.Sprintf("%s.log", now.Format(w.dateFmt))
+		fn := fmt.Sprintf("%s.log", nw.Format(w.dateFmt))
 		if w.prefix != "" {
 			fn = fmt.Sprintf("%s_%s", w.prefix, fn)
 		}
@@ -36,7 +39,7 @@ func (w *writer) Write(p []byte) (int, error) {
 			return 0, err
 		}
 
-		w.lastLog = now
+		w.lastLog = nw
 		w.file = f
 	}
 

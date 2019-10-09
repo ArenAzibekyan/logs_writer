@@ -8,7 +8,6 @@ import (
 )
 
 func TestWriter(t *testing.T) {
-
 	w, err := NewLogsWriter("", "test", "")
 	if err != nil {
 		t.Error(err)
