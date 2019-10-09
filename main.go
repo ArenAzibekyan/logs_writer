@@ -52,8 +52,8 @@ func prepareLogsDir(dir string) error {
 
 	if err != nil {
 		if os.IsNotExist(err) {
-			// rwxr--r--
-			err = os.Mkdir(dir, os.ModeDir|0744)
+			// rwxr-xr-x
+			err = os.Mkdir(dir, os.ModeDir|0755)
 			if err != nil {
 				return err
 			}
